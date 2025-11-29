@@ -10,34 +10,21 @@
     },
     "sequential-thinking2": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
       "disabled": true,
-      "autoApprove": [
-        "sequentialthinking"
-      ]
+      "autoApprove": ["sequentialthinking"]
     },
     "context-72": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp@latest"
-      ],
+      "args": ["-y", "@upstash/context7-mcp@latest"],
       "disabled": true,
       "autoApprove": []
     },
     "para-docs2": {
       "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://docs.getpara.com/mcp"
-      ],
+      "args": ["mcp-remote", "https://docs.getpara.com/mcp"],
       "disabled": true,
-      "disabledTools": [
-        "SearchParaDocs"
-      ]
+      "disabledTools": ["SearchParaDocs"]
     },
     "chrome-devtools2": {
       "command": "npx",
