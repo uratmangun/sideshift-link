@@ -1,0 +1,59 @@
+{
+  "mcpServers": {
+    "deepwiki2": {
+      "url": "https://mcp.deepwiki.com/mcp",
+      "disabled": true
+    },
+    "exa-search2": {
+      "url": "https://mcp.exa.ai/mcp",
+      "disabled": true
+    },
+    "sequential-thinking2": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "disabled": true,
+      "autoApprove": [
+        "sequentialthinking"
+      ]
+    },
+    "context-72": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp@latest"
+      ],
+      "disabled": true,
+      "autoApprove": []
+    },
+    "para-docs2": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://docs.getpara.com/mcp"
+      ],
+      "disabled": true,
+      "disabledTools": [
+        "SearchParaDocs"
+      ]
+    },
+    "chrome-devtools2": {
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@latest",
+        "--browser-url=http://127.0.0.1:9222"
+      ],
+      "disabled": true
+    },
+    "fetch2": {
+      "url": "https://server.smithery.ai/@smithery-ai/fetch/mcp",
+      "disabled": true
+    },
+    "coinbase-cdp2": {
+      "url": "https://docs.cdp.coinbase.com/mcp",
+      "disabled": true
+    }
+  }
+}
