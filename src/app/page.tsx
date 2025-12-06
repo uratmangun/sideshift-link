@@ -1,103 +1,283 @@
 "use client";
 
-import { useState } from "react";
+import { Checkout } from "@/components/Checkout";
 
 export default function Home() {
-  const [repoName, setRepoName] = useState("my-new-repo");
-  const [visibility, setVisibility] = useState<"public" | "private">("public");
-  const [copied, setCopied] = useState(false);
-
-  const hasSpaces = repoName.includes(" ");
-  const command = `gh repo create ${repoName || "my-new-repo"} --template uratmangun/kiro-nextjs --${visibility} --clone`;
-
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(command);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-zinc-950">
-      <main className="flex w-full max-w-2xl flex-col gap-6 px-6">
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
-          Clone this template
-        </h1>
-        <p className="text-zinc-600 dark:text-zinc-400">
-          Use the GitHub CLI to create a new repository from this template:
-        </p>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <div className="flex flex-1 flex-col gap-1">
-            <input
-              type="text"
-              value={repoName}
-              onChange={(e) => setRepoName(e.target.value)}
-              placeholder="Repository name"
-              className={`w-full rounded-lg border bg-white px-3 py-2 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-1 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 ${hasSpaces
-                  ? "border-amber-500 focus:border-amber-500 focus:ring-amber-500"
-                  : "border-zinc-300 focus:border-emerald-500 focus:ring-emerald-500 dark:border-zinc-700 dark:focus:border-emerald-500"
-                }`}
-            />
-            {hasSpaces && (
-              <p className="text-xs text-amber-600 dark:text-amber-400">
-                Repository names cannot contain spaces. Use hyphens instead.
-              </p>
-            )}
+    <div className="min-h-screen bg-zinc-50 dark:bg-black text-zinc-900 dark:text-zinc-100 font-sans selection:bg-blue-500/30">
+      {/* Navbar */}
+      <nav className="fixed top-0 w-full z-50 border-b border-zinc-200/50 dark:border-zinc-800/50 bg-white/80 dark:bg-black/80 backdrop-blur-md">
+        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-600/20">
+              S
+            </div>
+            <span className="font-bold text-xl tracking-tight">
+              SideShift Link
+            </span>
           </div>
-          <select
-            value={visibility}
-            onChange={(e) => setVisibility(e.target.value as "public" | "private")}
-            className="rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-emerald-500"
-          >
-            <option value="public">Public</option>
-            <option value="private">Private</option>
-          </select>
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            <a
+              href="/"
+              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Features
+            </a>
+            <a
+              href="/"
+              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Developers
+            </a>
+            <a
+              href="/"
+              className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Pricing
+            </a>
+          </div>
+          <div className="flex items-center gap-4">
+            <button
+              type="button"
+              className="text-sm font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              className="bg-zinc-900 dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+            >
+              Get Started
+            </button>
+          </div>
         </div>
-        <div className="relative rounded-lg bg-zinc-900 p-4 dark:bg-zinc-800">
-          <code className="block pr-10 text-sm text-emerald-400">
-            {command}
-          </code>
-          <button
-            type="button"
-            onClick={copyToClipboard}
-            className="absolute right-2 top-2 rounded p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-zinc-200"
-            aria-label="Copy command"
-          >
-            {copied ? (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-              </svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" />
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z" />
-              </svg>
-            )}
-          </button>
-        </div>
-        <div className="flex flex-col gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-          <p>Options:</p>
-          <ul className="list-inside list-disc space-y-1 pl-2">
-            <li>
-              <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                --public
-              </code>{" "}
-              — Create a public repository
-            </li>
-            <li>
-              <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                --private
-              </code>{" "}
-              — Create a private repository
-            </li>
-            <li>
-              <code className="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                --clone
-              </code>{" "}
-              — Clone the new repository locally
-            </li>
-          </ul>
+      </nav>
+
+      {/* Hero Section */}
+      <main className="pt-32 pb-20 px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: Text Content */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-sm font-medium border border-blue-100 dark:border-blue-800">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+              </span>
+              New: One-click checkout
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl font-bold tracking-tight leading-[1.1]">
+              The fastest way to <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+                shift crypto.
+              </span>
+            </h1>
+
+            <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-lg leading-relaxed">
+              Experience the future of crypto payments. SideShift Link brings
+              the simplicity of Stripe Link to the decentralized world. No
+              sign-ups, just shift.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <button
+                type="button"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-semibold text-lg shadow-lg shadow-blue-600/25 transition-all hover:scale-105 active:scale-95"
+              >
+                Start Shifting
+              </button>
+              <button
+                type="button"
+                className="px-8 py-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800 text-zinc-900 dark:text-white rounded-full font-semibold text-lg transition-all flex items-center justify-center gap-2"
+              >
+                View Documentation
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div className="pt-8 flex items-center gap-6 text-zinc-500 dark:text-zinc-500 text-sm">
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-5 h-5 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span>No account required</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-5 h-5 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span>Non-custodial</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <svg
+                  className="w-5 h-5 text-green-500"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span>75+ Coins</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Checkout Demo */}
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 to-purple-500/20 rounded-full blur-3xl -z-10 transform scale-110"></div>
+            <Checkout />
+          </div>
         </div>
       </main>
+
+      {/* Features Grid */}
+      <section className="py-24 bg-zinc-50 dark:bg-zinc-900/50 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold mb-4">
+              Why choose SideShift Link?
+            </h2>
+            <p className="text-zinc-600 dark:text-zinc-400">
+              Built for the modern web, SideShift Link provides the smoothest
+              crypto checkout experience available today.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Global Payments",
+                desc: "Accept payments from anywhere in the world with support for over 75 cryptocurrencies across multiple networks.",
+                icon: (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                ),
+              },
+              {
+                title: "Instant Settlement",
+                desc: "Funds are settled directly to your wallet. No holding periods, no rolling reserves, just your money.",
+                icon: (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                ),
+              },
+              {
+                title: "Developer First",
+                desc: "Integrate in minutes with our robust API and SDKs. Built by developers, for developers.",
+                icon: (
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    />
+                  </svg>
+                ),
+              },
+            ].map((feature) => (
+              <div
+                key={feature.title}
+                className="bg-white dark:bg-zinc-900 p-8 rounded-2xl border border-zinc-200 dark:border-zinc-800 hover:border-blue-500/50 transition-colors group"
+              >
+                <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 mb-6 group-hover:scale-110 transition-transform">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  {feature.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 border-t border-zinc-200 dark:border-zinc-800">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 bg-zinc-900 dark:bg-white rounded-md flex items-center justify-center text-white dark:text-black font-bold text-xs">
+              S
+            </div>
+            <span className="font-semibold">SideShift Link</span>
+          </div>
+          <div className="text-sm text-zinc-500">
+            © 2024 SideShift Link. All rights reserved.
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
